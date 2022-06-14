@@ -1,21 +1,29 @@
-const BlogForm = ({addBlog}) => {
+const BlogForm = ({
+  addBlog,
+  newTitle,
+  newAuthor,
+  newUrl,
+  setNewTitle,
+  setNewAuthor,
+  setNewUrl
+}) => {
 
   const handleTitleChange = (event) => {
     return (
-    setNewTitle(event.target.value))
+      setNewTitle(event.target.value))
   }
 
   const handleAuthorChange = (event) => {
     return (
-    setNewAuthor(event.target.value))
+      setNewAuthor(event.target.value))
   }
 
   const handleUrlChange = (event) => {
     return (
-    setNewUrl(event.target.value))
+      setNewUrl(event.target.value))
   }
-  
-    return (
+
+  return (
 
     <form onSubmit={addBlog}>
       <div>
@@ -29,7 +37,7 @@ const BlogForm = ({addBlog}) => {
       </div>
       <div>
         author:
-          <input
+        <input
           type="text"
           value={newAuthor}
           name="Author"
@@ -37,8 +45,8 @@ const BlogForm = ({addBlog}) => {
         />
       </div>
       <div>
-          url:
-          <input
+        url:
+        <input
           type="text"
           value={newUrl}
           name="Url"
@@ -46,7 +54,7 @@ const BlogForm = ({addBlog}) => {
         />
       </div>
       <button type="submit">create</button>
-    </form>  
+    </form>
   )
 }
 

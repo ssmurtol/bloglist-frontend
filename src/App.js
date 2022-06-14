@@ -23,7 +23,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -71,9 +71,9 @@ const App = () => {
     try {
       window.localStorage.removeItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
-    } catch (exception) {
-      setErrorMessage('logging out failed')
+      )
+    } catch {
+      notify(`logging out failed`)
     }
   }
 
@@ -102,7 +102,7 @@ const App = () => {
       <h2>log in to application</h2>
       <div>
         username
-          <input
+        <input
           type='text'
           value={username}
           name='Username'
@@ -111,58 +111,58 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type='password'
           value={password}
           name='Password'
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">login</button>
-    </form>      
+      <button type='submit'>login</button>
+    </form>
   )
 
   const blogForm = () => {
     const hideWhenVisible = { display: createBlogVisible ? 'none' : '' }
     const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
-    
+
     return (
       <div>
         <div style={hideWhenVisible}>
           <h2>create new</h2>
         </div>
         <div style={showWhenVisible}></div>
-          <BlogForm
-            newTitle={newTitle}
-            newAuthor={newAuthor}
-            newUrl={newUrl}
-            handleTitleChange={({ target }) => setNewTitle(target.value)}
-            handleAuthorChange={({ target }) => setNewAuthor(target.value)}
-            handleUrlChange={({ target }) => setNewUrl(target.value)}
-            addBlog={addBlog}
-          />
+        <BlogForm
+          newTitle={newTitle}
+          newAuthor={newAuthor}
+          newUrl={newUrl}
+          handleTitleChange={({ target }) => setNewTitle(target.value)}
+          handleAuthorChange={({ target }) => setNewAuthor(target.value)}
+          handleUrlChange={({ target }) => setNewUrl(target.value)}
+          addBlog={addBlog}
+        />
       </div>
-    ) 
+    )
   }
 
   return (
     <div>
-     <Notification notification={notification} />
-     {user === null ?
-      loginForm() :
-      <div>
-        <p>{user.name} logged in
-        <button onClick={handleLogout}>logout</button></p>
-        <Togglable buttonLabel='create a new blog' ref={blogFormRef}>
-          {blogForm()}
-        </Togglable>
+      <Notification notification={notification} />
+      {user === null ?
+        loginForm() :
+        <div>
+          <p>{user.name} logged in
+            <button onClick={handleLogout}>logout</button></p>
+          <Togglable buttonLabel='create a new blog' ref={blogFormRef}>
+            {blogForm()}
+          </Togglable>
 
-        <h2>blogs</h2>
+          <h2>blogs</h2>
           {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
-        )} 
-      </div>
-      } 
+            <Blog key={blog.id} blog={blog}/>
+          )}
+        </div>
+      }
     </div>
   )
 }
