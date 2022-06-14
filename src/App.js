@@ -97,21 +97,6 @@ const App = () => {
     notify(`a new blog ${newTitle} by ${newAuthor} added`)
   }
 
-  const handleTitleChange = (event) => {
-    return (
-    setNewTitle(event.target.value))
-  }
-
-  const handleAuthorChange = (event) => {
-    return (
-    setNewAuthor(event.target.value))
-  }
-
-  const handleUrlChange = (event) => {
-    return (
-    setNewUrl(event.target.value))
-  }
-
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>log in to application</h2>
@@ -168,7 +153,7 @@ const App = () => {
       <div>
         <p>{user.name} logged in
         <button onClick={handleLogout}>logout</button></p>
-        <Togglable buttonLabel='create new blog' ref={blogFormRef}>
+        <Togglable buttonLabel='create a new blog' ref={blogFormRef}>
           {blogForm()}
         </Togglable>
 

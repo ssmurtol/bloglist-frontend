@@ -1,12 +1,20 @@
-const BlogForm = ({
-    addBlog,
-    newTitle,
-    handleTitleChange,
-    newAuthor,
-    handleAuthorChange,
-    newUrl,
-    handleUrlChange
-}) => {
+const BlogForm = ({addBlog}) => {
+
+  const handleTitleChange = (event) => {
+    return (
+    setNewTitle(event.target.value))
+  }
+
+  const handleAuthorChange = (event) => {
+    return (
+    setNewAuthor(event.target.value))
+  }
+
+  const handleUrlChange = (event) => {
+    return (
+    setNewUrl(event.target.value))
+  }
+  
     return (
 
     <form onSubmit={addBlog}>

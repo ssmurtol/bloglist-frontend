@@ -1,4 +1,4 @@
-const Blog = ({blog, handleLike}) => (
+const Blog = ({blog}) => (
   <div>
   {blog.title} {blog.author}
     <p>{blog.url}</p>
