@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
+import Notification from './components/Notification'
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
   const [createBlogVisible, setCreateBlogVisible] = useState(false)
+  const [notification, setNotification] = useState(null)
 
   const blogFormRef = useRef()
 
@@ -33,6 +35,13 @@ const App = () => {
     }
   }, [])
 
+  const notify = (message, type='info') => {
+    setNotification({ message, type })
+    setTimeout(() => {
+      setNotification(null)
+    }, 3000)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     console.log('logging in with', username, password)
@@ -48,11 +57,10 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+    } catch{
+      notify(
+        `wrong username or password`, 'alert'
+      )
     }
   }
 
@@ -86,6 +94,7 @@ const App = () => {
         setNewAuthor('')
         setNewUrl('')
       })
+    notify(`a new blog ${newTitle} by ${newAuthor} added`)
   }
 
   const handleTitleChange = (event) => {
@@ -102,7 +111,7 @@ const App = () => {
     return (
     setNewUrl(event.target.value))
   }
- 
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>log in to application</h2>
@@ -153,6 +162,7 @@ const App = () => {
 
   return (
     <div>
+     <Notification notification={notification} />
      {user === null ?
       loginForm() :
       <div>
