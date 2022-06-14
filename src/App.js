@@ -12,10 +12,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
-  const [createBlogVisible, setCreateBlogVisible] = useState(false)
+  const [createBlogVisible] = useState(false)
   const [notification, setNotification] = useState(null)
 
   const blogFormRef = useRef()
@@ -59,7 +56,7 @@ const App = () => {
       setPassword('')
     } catch{
       notify(
-        `wrong username or password`, 'alert'
+        'wrong username or password', 'alert'
       )
     }
   }
@@ -73,28 +70,18 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(user)
       )
     } catch {
-      notify(`logging out failed`)
+      notify('logging out failed')
     }
   }
 
-  const addBlog = (event) => {
-    event.preventDefault()
-
-    const blogObject = {
-      title: newTitle,
-      url: newUrl,
-      author: newAuthor,
-    }
+  const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     blogService
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
       })
-    notify(`a new blog ${newTitle} by ${newAuthor} added`)
+    notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
   }
 
   const loginForm = () => (
@@ -132,15 +119,7 @@ const App = () => {
           <h2>create new</h2>
         </div>
         <div style={showWhenVisible}></div>
-        <BlogForm
-          newTitle={newTitle}
-          newAuthor={newAuthor}
-          newUrl={newUrl}
-          handleTitleChange={({ target }) => setNewTitle(target.value)}
-          handleAuthorChange={({ target }) => setNewAuthor(target.value)}
-          handleUrlChange={({ target }) => setNewUrl(target.value)}
-          addBlog={addBlog}
-        />
+        <BlogForm createBlog={addBlog} />
       </div>
     )
   }
