@@ -84,6 +84,9 @@ const App = () => {
     notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
   }
 
+  const sorted = blogs.sort((a,b) => { return b.likes - a.likes })
+  console.log(sorted)
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>log in to application</h2>
@@ -135,9 +138,8 @@ const App = () => {
           <Togglable buttonLabel='create a new blog' ref={blogFormRef}>
             {blogForm()}
           </Togglable>
-
           <h2>blogs</h2>
-          {blogs.map(blog =>
+          {sorted.map(blog =>
             <Blog key={blog.id} blog={blog}/>
           )}
         </div>
