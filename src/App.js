@@ -85,7 +85,8 @@ const App = () => {
   }
 
   const sorted = blogs.sort((a,b) => { return b.likes - a.likes })
-  console.log(sorted)
+
+
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -140,8 +141,8 @@ const App = () => {
           </Togglable>
           <h2>blogs</h2>
           {sorted.map(blog =>
-            <Blog key={blog.id} blog={blog}/>
-          )}
+            <Blog key={blog.id} blog={blog}/>)
+          }
         </div>
       }
     </div>
